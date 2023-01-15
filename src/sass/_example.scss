@@ -26,3 +26,37 @@
   background-size: cover;
   background-position: center;
 }
+
+.search-form {
+  background-color: rgb(241, 138, 219);
+  padding-top: 40px;
+  padding-bottom: 40px;
+  text-align: center;
+  //margin: 0, auto;
+}
+
+.input-search {
+  width: 400px;
+  height: 30px;
+}
+
+.btn-search {
+  height: 30px;
+  width: 100px;
+}
+
+.gallery {
+  //max-width: 1400px;
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.gallery-img {
+  width: 300;
+  height: 200;
+  max-width: unset;
+  object-fit: cover;
+}
