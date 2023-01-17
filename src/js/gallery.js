@@ -20,6 +20,7 @@ const appendRandomPhotos = async () => {
         const { data } = await pixabayAPI.fetchRandomPhotos();
         //console.log(data);
         refs.galleryListEl.innerHTML = createGalleryCards(data.hits);
+        const lightbox = new SimpleLightbox('.gallery a'); 
     } catch (err) {
         console.log(err);
     }
@@ -33,7 +34,7 @@ const onSearchSubmit = async e => {
     refs.searchBtnEl.disabled = true;
     refs.searchBtnEl.classList.add('disabled');
 
-    pixabayAPI.query = e.target.elements.searchQuery.value;    
+    pixabayAPI.query = e.target.elements.searchQuery.value;
     pixabayAPI.page = 1;
     
     try { 
