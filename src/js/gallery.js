@@ -6,12 +6,15 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
+
 const refs = {
     searchFormEl: document.querySelector('#search-form'),
     galleryListEl: document.querySelector('.gallery'),
     loadMoreBtnEl: document.querySelector('.load-more'),
-    searchBtnEl: document.querySelector('.btn-search'),
+    searchBtnEl: document.querySelector('.btn-search'),    
 }
+const { height: cardHeight } = document.querySelector(".gallery");
+
 
 const pixabayAPI = new PixabayAPI();
 
@@ -31,9 +34,6 @@ appendRandomPhotos();
 const onSearchSubmit = async e => {
     e.preventDefault();
 
-    refs.searchBtnEl.disabled = true;
-    refs.searchBtnEl.classList.add('disabled');
-
     pixabayAPI.query = e.target.elements.searchQuery.value;
     pixabayAPI.page = 1;
     
@@ -44,7 +44,7 @@ const onSearchSubmit = async e => {
             //alert('Нічого не знайдено')
             e.target.reset();
             refs.galleryListEl.innerHTML = '';
-            refs.loadMoreBtnEl.classList.add('is-hidden');
+            refs.loadMoreBtnEl.classList.add('is-hidden');            
             return;
         }
         if (data.totalHits > 40) {            
@@ -57,9 +57,7 @@ const onSearchSubmit = async e => {
         const lightbox = new SimpleLightbox('.gallery a');    
     } catch (err) {
         console.log(err);
-    }        
-    refs.searchBtnEl.disabled = false;
-    refs.searchBtnEl.classList.remove('disabled');
+    }   
 };
 
 const onLoadMoreClick =async e => {
@@ -74,6 +72,14 @@ const onLoadMoreClick =async e => {
         const lightbox = new SimpleLightbox('.gallery a');
         lightbox.refresh();
 
+        const { height: cardHeight } = document
+            .querySelector(".gallery")
+            .firstElementChild.getBoundingClientRect();
+        window.scrollBy({
+            top: cardHeight * 2,
+            behavior: "smooth",
+        });
+        
         const totalPage = Math.ceil(data.totalHits / 40);
         
         if (totalPage === pixabayAPI.page) {
