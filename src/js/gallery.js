@@ -1,6 +1,5 @@
 'use strict'
 import { PixabayAPI } from "./pixabay-api";
-import axios from 'axios';
 import { createGalleryCards } from "./createGalleryCards";
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
@@ -13,17 +12,16 @@ const refs = {
     loadMoreBtnEl: document.querySelector('.load-more'),
     searchBtnEl: document.querySelector('.btn-search'),    
 }
-const { height: cardHeight } = document.querySelector(".gallery");
-
 
 const pixabayAPI = new PixabayAPI();
 
 const appendRandomPhotos = async () => {
     try {
         const { data } = await pixabayAPI.fetchRandomPhotos();
-        //console.log(data);
+        
         refs.galleryListEl.innerHTML = createGalleryCards(data.hits);
-        const lightbox = new SimpleLightbox('.gallery a'); 
+        
+        const lightbox = new SimpleLightbox('.gallery a');        
     } catch (err) {
         console.log(err);
     }
@@ -54,7 +52,8 @@ const onSearchSubmit = async e => {
             
         refs.galleryListEl.innerHTML = createGalleryCards(data.hits);
         
-        const lightbox = new SimpleLightbox('.gallery a');    
+        const lightbox = new SimpleLightbox('.gallery a');
+        lightbox.refresh();
     } catch (err) {
         console.log(err);
     }   
