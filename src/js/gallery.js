@@ -33,7 +33,7 @@ const onSearchSubmit = async e => {
     refs.searchBtnEl.disabled = true;
     refs.searchBtnEl.classList.add('disabled');
 
-    pixabayAPI.query = e.target.elements.searchQuery.value;
+    pixabayAPI.query = e.target.elements.searchQuery.value;    
     pixabayAPI.page = 1;
     
     try { 
@@ -46,7 +46,7 @@ const onSearchSubmit = async e => {
             refs.loadMoreBtnEl.classList.add('is-hidden');
             return;
         }
-        if (data.totalHits > 40) {            c
+        if (data.totalHits > 40) {            
             refs.loadMoreBtnEl.classList.remove('is-hidden')
             Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
         }
